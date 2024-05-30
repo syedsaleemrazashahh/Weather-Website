@@ -3,14 +3,15 @@ const cityInput = document.querySelector("#cityInput");
 const API_KEY = "b3e90efbb5423e3395793dface9f64e6";
 const temperature = document.querySelector("#temperature");
 const humidity = document.querySelector("#humidity");
-const message = document.querySelector("#message");
+const message1 = document.querySelector("#message");
 const button = document.querySelector("#button1");
 
 const formController = async (event) => {
   try {
     event.preventDefault();
 
-    message.innerText = "loading...";
+    message1.innerText = "loading...";
+
     temperature.innerText = "";
     humidity.innerText = "";
     button.disabled = true;
@@ -20,21 +21,29 @@ const formController = async (event) => {
     const response = await axios(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
     );
-
-    message.innerText = "";
-
     form.reset();
 
-    temperature.innerText = `${response.data.main.temperature}°C`;
+    message1.innerText = "";
+
+    
+    temperature.innerText = `${response.data.main.temp}°C`;
     humidity.innerText = response.data.main.humidity;
 
     console.log("formController , response", response.data);
-    button.disabled = false;
-  } catch (error) {
-    console.log(error);
 
-    message.innerText = error?.response?.data?.message || "unknown error";
+  } catch (error) {
+    //console.log("error" , error);
+
+    message1.innerText = error?.response?.data?.message || "unknown error";
+
+  } finally {
+   console.log ("coderuning" );
+
+    message1.innerText =  "";
+
+    button.disabled = false;
   }
+  console.log ("lastline" );
 };
 
 form.addEventListener("submit", formController);
