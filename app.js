@@ -26,7 +26,7 @@ const formController = async (event) => {
 
     form.reset();
 
-    temperature.innerText = `${response.data.main.temp}°C`;
+    temperature.innerText = `${response.data.main.temperature}°C`;
     humidity.innerText = response.data.main.humidity;
 
     console.log("formController , response", response.data);
